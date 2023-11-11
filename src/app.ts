@@ -21,6 +21,6 @@ for (const [path, route] of Object.entries(routes)) {
 
 if (require.main === module) {
   app.listen(port, () => {
-    console.log("Server is running on port 3000");
+    console.log("Server is running on port 3033");
   });
 }

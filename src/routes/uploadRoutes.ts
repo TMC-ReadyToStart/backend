@@ -13,13 +13,30 @@ router.post("/", (req, res, next) => {
     try {
       const zip = new AdmZip(req.body);
       const zipEntries = zip.getEntries();
+      const zipName = zipEntries[0].entryName.split("/")[0];
+      const treeFile = path.join(__dirname, `extracted/${zipName}`, "tree.txt");
+      const concatFile = path.join(
+        __dirname,
+        `extracted/${zipName}`,
+        "concatenated.txt"
+      );
+      fs.mkdirSync(path.dirname(treeFile), { recursive: true });
+      fs.mkdirSync(path.dirname(concatFile), { recursive: true });
+
+      // Create streams for writing tree and concatenated data
+      const treeStream = fs.createWriteStream(treeFile);
+      const concatStream = fs.createWriteStream(concatFile);
 
       zipEntries.forEach((entry) => {
         const entryName = entry.entryName;
         const entryData = entry.getData();
-        const filePath = path.join(__dirname, "./extracted", entryName);
-        if (entry.isDirectory) fs.mkdirSync(filePath, { recursive: true });
-        else fs.writeFileSync(filePath, entryData);
+
+        treeStream.write(entryName + "\n");
+
+        if (!entry.isDirectory) {
+          concatStream.write("//" + entryName + "\n");
+          concatStream.write(entryData + "\n");
+        }
       });
 
       res.send("Successfully extracted zip file");
