@@ -3,6 +3,7 @@ import { router as moocRoutes } from "./routes/moocsRoutes";
 import { router as uploadRoutes } from "./routes/uploadRoutes";
 import { router as usersRoutes } from "./routes/usersRoutes";
 import cors from "cors";
+import { setupAssistant } from "./services/bardai";
 
 export const app = express();
 const port = 3033;
@@ -24,3 +25,5 @@ if (require.main === module) {
     console.log("Server is running on port 3033");
   });
 }
+
+setupAssistant();

@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import AdmZip from "adm-zip";
 import path from "path";
 import fs from "fs";
+import { testAssistant } from "../services/bardai";
 
 export const router = express.Router();
 
@@ -14,12 +15,8 @@ router.post("/", (req, res, next) => {
       const zip = new AdmZip(req.body);
       const zipEntries = zip.getEntries();
       const zipName = zipEntries[0].entryName.split("/")[0];
-      const treeFile = path.join(__dirname, `extracted/${zipName}`, "tree.txt");
-      const concatFile = path.join(
-        __dirname,
-        `extracted/${zipName}`,
-        "concatenated.txt"
-      );
+      const treeFile = path.join(`./extracted`, "tree.txt");
+      const concatFile = path.join(`./extracted`, "concatenated.txt");
       fs.mkdirSync(path.dirname(treeFile), { recursive: true });
       fs.mkdirSync(path.dirname(concatFile), { recursive: true });
 
@@ -38,6 +35,13 @@ router.post("/", (req, res, next) => {
           concatStream.write(entryData + "\n");
         }
       });
+      treeStream.end();
+      concatStream.end();
+      let request = `Entrée:`;
+      request += fs.readFileSync("extracted/tree.txt", "utf8");
+      request += fs.readFileSync("extracted/concatenated.txt", "utf8");
+      console.log("Request:", request);
+      testAssistant(request);
 
       res.send("Successfully extracted zip file");
     } catch (error) {
