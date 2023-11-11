@@ -1,11 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import AdmZip from "adm-zip";
-import e from "express";
+import path from "path";
+import fs from "fs";
 
 export const router = express.Router();
 
-router.use(bodyParser.raw({ type: "application/zip", limit: "1mb" })); // Content-Type must be set to application/zip
+router.use(bodyParser.raw({ type: "application/zip", limit: "1mb" }));
 
 router.post("/", (req, res, next) => {
   if (req.is("application/zip")) {
@@ -14,8 +15,11 @@ router.post("/", (req, res, next) => {
       const zipEntries = zip.getEntries();
 
       zipEntries.forEach((entry) => {
-        zip.extractEntryTo(entry.entryName, "./uploads", false, true);
-        // Do something with the entry data (entry.getData())
+        const entryName = entry.entryName;
+        const entryData = entry.getData();
+        const filePath = path.join(__dirname, "./extracted", entryName);
+        if (entry.isDirectory) fs.mkdirSync(filePath, { recursive: true });
+        else fs.writeFileSync(filePath, entryData);
       });
 
       res.send("Successfully extracted zip file");
