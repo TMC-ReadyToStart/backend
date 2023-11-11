@@ -1,5 +1,5 @@
 Entrée:
-Un file tree d'un projet, le tout suivi du contenu de chaque fichier. Le contenu de chaque fichier est précédé par un commentaire contenant le nom du fichier. Le tout est séparé par des sauts de ligne.\
+Un file tree d'un projet, le tout suivi du contenu de chaque fichier. Le contenu de chaque fichier est précédé par un commentaire contenant le nom du fichier. Le tout est séparé par des sauts de ligne.
 
 Sortie:
 Un fichier JSON contenant une seule question portant sur :
@@ -14,9 +14,7 @@ Le fichier JSON doit être structuré de la manière suivante :
   "question": "La question",
   "mcq": [
     "La réponse correcte",
-    "Une réponse incorrecte",
-    "Une autre réponse incorrecte",
-    "Encore une réponse incorrecte"
+    3 autres réponses fausses
   ],
   "answer": "La réponse correcte"
 }

@@ -15,33 +15,22 @@ router.post("/", (req, res, next) => {
       const zip = new AdmZip(req.body);
       const zipEntries = zip.getEntries();
       const zipName = zipEntries[0].entryName.split("/")[0];
-      const treeFile = path.join(`./extracted`, "tree.txt");
-      const concatFile = path.join(`./extracted`, "concatenated.txt");
-      fs.mkdirSync(path.dirname(treeFile), { recursive: true });
-      fs.mkdirSync(path.dirname(concatFile), { recursive: true });
+      const questionPath = path.join(`questions/${zipName}`);
 
-      // Create streams for writing tree and concatenated data
-      const treeStream = fs.createWriteStream(treeFile);
-      const concatStream = fs.createWriteStream(concatFile);
+      if (!fs.existsSync(questionPath)) {
+        fs.mkdirSync(questionPath);
+      }
 
-      zipEntries.forEach((entry) => {
-        const entryName = entry.entryName;
+      zipEntries.forEach(async (entry) => {
         const entryData = entry.getData();
 
-        treeStream.write(entryName + "\n");
-
         if (!entry.isDirectory) {
-          concatStream.write("//" + entryName + "\n");
-          concatStream.write(entryData + "\n");
+          fs.writeFileSync(
+            questionPath,
+            await testAssistant(entryData.toString())
+          );
         }
       });
-      treeStream.end();
-      concatStream.end();
-      let request = `Entrée:`;
-      request += fs.readFileSync("extracted/tree.txt", "utf8");
-      request += fs.readFileSync("extracted/concatenated.txt", "utf8");
-      console.log("Request:", request);
-      testAssistant(request);
 
       res.send("Successfully extracted zip file");
     } catch (error) {
