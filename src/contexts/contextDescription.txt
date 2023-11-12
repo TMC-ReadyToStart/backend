@@ -1,0 +1,13 @@
+Entrée:
+Un file tree d'un projet de code
+
+Sortie:
+Un fichier JSON contenant une analyse du projet
+Le fichier JSON doit être structuré de la manière suivante :
+{
+  "language": "le language de programmation du projet",
+  "description": "En te basant sur les noms des fichiers, decrit le projet, ne parle pas au conditionnel mais a l'indicatif",
+}
+
+Assure toi de me repondre que le json. J'ai besoin de savoir si tu as compris. Je ne veux pas de code, je veux du json.
+As tu compris? Si oui réponds exclusivement et uniquement par "compris"

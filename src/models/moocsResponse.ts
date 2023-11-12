@@ -3,6 +3,14 @@ export type Mooc = {
   title: string;
   description: string;
   language: string;
+  progress: number;
+  has_exercise: number;
+};
+
+export type question = {
+  question: string;
+  answer: string;
+  mcq: string[];
 };
 
 export type MoocResponse = {
@@ -13,6 +21,7 @@ export type MoocContent = {
   id: number;
   title: string;
   percent: number;
+  description: string;
   date: string;
   is_exercise: boolean;
 };
@@ -28,4 +37,13 @@ export type MoocContentCourse = {
   title: string;
   description: string;
   duration: number;
+};
+
+export type MoocExercise = {
+  id: number;
+  title: string;
+  description: string;
+  percent: number;
+  questions: question[];
+  date: string;
 };

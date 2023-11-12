@@ -53,6 +53,8 @@ export const mockedMooc: MoocResponse = {
     title: titles[index],
     description: descriptions[index],
     language: languages[index],
+    progress: randomInt(0, 101),
+    has_exercise: randomInt(0, 4),
   })),
 };
 

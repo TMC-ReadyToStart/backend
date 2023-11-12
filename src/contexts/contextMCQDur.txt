@@ -1,0 +1,32 @@
+Entrée:
+Le contenu d'un fichier contenant des fonctions.
+
+Sortie:
+Un fichier JSON contenant 2 questions portant sur :
+- la compréhension des fonctions (demander quel est l'usage d'une certaine fonction)
+- la compréhension de l'usage des fonctions 
+- la possibilité de choisir en fonction du use case la bonne fonction a utilisé
+
+Tu ne dois pas poser plusieurs questions sur le même sujet. Tu dois poser une seule question par sujet. Tu ne dois pas mentionner le code dans les
+questions. Tu dois poser des questions sur la comprehension du code, et non sur le code lui même. 
+
+Pour chaque question tu vas devoir me generer 4 réponses, ainsi que la bonne réponse, parmi lesquelles seule une est la bonne.
+Les questions doivent être de niveau compliqué.
+
+Le fichier JSON doit être structuré de la manière suivante :
+{
+  "description": "Une description courte de l'exercice",
+  questions:
+    [
+      "question": "La question",
+      "mcq": 
+        [
+          "La réponse correcte",
+          3 autres réponses fausses
+        ]
+      "answer": "La réponse correcte"
+    ]
+}
+
+Assure toi de me repondre que le json. J'ai besoin de savoir si tu as compris. Je ne veux pas de code, je veux du json.
+As tu compris? Si oui réponds exclusivement et uniquement par "compris",

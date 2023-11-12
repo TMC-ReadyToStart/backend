@@ -130,3 +130,11 @@ dist
 .pnp.*
 node_modules/
 build/
+uploaded/
+questions/
+extracted/
+mongo/
+.vscode/
+.env
+questio/
+docker-compose.yml
